@@ -1,16 +1,12 @@
-/**
- * LeetCode 1207. Unique Number of Occurrences (Easy)
- * Topic: hash maps / frequency counting
- *
- * Approach: `groupingBy { it }.eachCount()` builds the value-to-frequency map in one pass without
- * materialising the intermediate groups, which is what makes it cheaper than `groupBy`. The
- * question then reduces to asking whether those frequencies are pairwise distinct, and a set
- * collapses duplicates, so the counts are unique precisely when converting them to a set loses
- * nothing.
- */
+// LeetCode 1207. Unique Number of Occurrences (Easy) - hash map
+
+// groupingBy + eachCount counts every value in one pass without building the
+// intermediate lists that groupBy would. After that the counts are unique exactly
+// when dumping them into a Set doesn't lose anything.
+
 fun uniqueOccurrences(arr: IntArray): Boolean =
     arr.toList()
         .groupingBy { it }
         .eachCount()
         .values
-        .let { counts -> counts.size == counts.toSet().size }
+        .let { it.size == it.toSet().size }
